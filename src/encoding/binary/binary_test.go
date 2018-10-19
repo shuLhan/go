@@ -593,6 +593,19 @@ func BenchmarkWriteSlice1000Int32s(b *testing.B) {
 	b.StopTimer()
 }
 
+func BenchmarkWriteSlice1024Uint8(b *testing.B) {
+	slice := make([]byte, 1024)
+	buf := new(bytes.Buffer)
+	buf.Grow(1024)
+	var w io.Writer = buf
+	b.SetBytes(1024)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		buf.Reset()
+		Write(w, BigEndian, slice)
+	}
+}
+
 func BenchmarkPutUint16(b *testing.B) {
 	b.SetBytes(2)
 	for i := 0; i < b.N; i++ {
