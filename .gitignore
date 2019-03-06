@@ -24,10 +24,12 @@ _testmain.go
 /build.out
 /doc/articles/wiki/*.bin
 /goinstall.log
+/issues/
 /last-change
 /misc/cgo/life/run.out
 /misc/cgo/stdio/run.out
 /misc/cgo/testso/main
+/nonexistentpath/
 /pkg/
 /src/*.*/
 /src/cmd/cgo/zdefaultcc.go
