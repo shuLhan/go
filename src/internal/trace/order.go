@@ -52,7 +52,7 @@ const (
 // incorrect (condition observed on some machines).
 func order1007(m map[int][]*Event) (events []*Event, err error) {
 	pending := 0
-	var batches []*eventBatch
+	batches := make([]*eventBatch, 0, len(m))
 	for _, v := range m {
 		pending += len(v)
 		batches = append(batches, &eventBatch{v, false})

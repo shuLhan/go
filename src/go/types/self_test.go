@@ -108,7 +108,7 @@ func pkgFiles(fset *token.FileSet, path string, mode parser.Mode) ([]*ast.File, 
 		return nil, err
 	}
 
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(filenames))
 	for _, filename := range filenames {
 		file, err := parser.ParseFile(fset, filename, nil, mode)
 		if err != nil {

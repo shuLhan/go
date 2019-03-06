@@ -113,7 +113,7 @@ func TestParseProcNet(t *testing.T) {
 		}
 	}()
 
-	var ifmat4 []Addr
+	ifmat4 := make([]Addr, 0, len(igmpInterfaceTable))
 	for _, ifi := range igmpInterfaceTable {
 		ifmat := parseProcNetIGMP("testdata/igmp", &ifi)
 		ifmat4 = append(ifmat4, ifmat...)
@@ -122,7 +122,7 @@ func TestParseProcNet(t *testing.T) {
 		t.Fatalf("got %d; want %d", len(ifmat4), numOfTestIPv4MCAddrs)
 	}
 
-	var ifmat6 []Addr
+	ifmat6 := make([]Addr, 0, len(igmp6InterfaceTable))
 	for _, ifi := range igmp6InterfaceTable {
 		ifmat := parseProcNetIGMP6("testdata/igmp6", &ifi)
 		ifmat6 = append(ifmat6, ifmat...)

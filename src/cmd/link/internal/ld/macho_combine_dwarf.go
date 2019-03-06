@@ -256,7 +256,7 @@ func machoCompressSections(ctxt *Link, dwarfm *macho.File) ([]*macho.Section, []
 	}
 
 	dwarfseg := dwarfm.Segment("__DWARF")
-	var sects []*macho.Section
+	sects := make([]*macho.Section, 0, len(dwarfm.Sections))
 	var buf bytes.Buffer
 
 	for _, sect := range dwarfm.Sections {

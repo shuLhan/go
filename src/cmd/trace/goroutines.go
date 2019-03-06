@@ -61,7 +61,7 @@ func httpGoroutines(w http.ResponseWriter, r *http.Request) {
 		gs1.ExecTime += g.ExecTime
 		gss[g.PC] = gs1
 	}
-	var glist []gtype
+	glist := make([]gtype, 0, len(gss))
 	for k, v := range gss {
 		v.ID = k
 		glist = append(glist, v)
@@ -102,7 +102,7 @@ func httpGoroutine(w http.ResponseWriter, r *http.Request) {
 	}
 	analyzeGoroutines(events)
 	var (
-		glist                   []*trace.GDesc
+		glist                   = make([]*trace.GDesc, 0, len(gs))
 		name                    string
 		totalExecTime, execTime int64
 		maxTotalTime            int64

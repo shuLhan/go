@@ -1030,7 +1030,7 @@ func testRotate(t *testing.T, rotate bool, nameservers, wantServers []string) {
 	}
 	defer conf.teardown()
 
-	var confLines []string
+	confLines := make([]string, 0, len(nameservers))
 	for _, ns := range nameservers {
 		confLines = append(confLines, "nameserver "+ns)
 	}

@@ -747,7 +747,7 @@ func (hs *serverHandshakeState) sendSessionTicket() error {
 		createdAt = hs.sessionState.createdAt
 	}
 
-	var certsFromClient [][]byte
+	certsFromClient := make([][]byte, 0, len(c.peerCertificates))
 	for _, cert := range c.peerCertificates {
 		certsFromClient = append(certsFromClient, cert.Raw)
 	}

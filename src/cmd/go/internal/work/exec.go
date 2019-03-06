@@ -547,7 +547,10 @@ func (b *Builder) build(ctx context.Context, a *Action) (err error) {
 	cfiles := str.StringList(a.Package.CFiles)
 	sfiles := str.StringList(a.Package.SFiles)
 	cxxfiles := str.StringList(a.Package.CXXFiles)
-	var objects, cgoObjects, pcCFLAGS, pcLDFLAGS []string
+	objects := make([]string, 0, len(cfiles))
+	cgoObjects := make([]string, 0, len(cgofiles))
+	pcCFLAGS := make([]string, 0, 0)
+	pcLDFLAGS := make([]string, 0, 0)
 
 	if a.Package.UsesCgo() || a.Package.UsesSwig() {
 		if pcCFLAGS, pcLDFLAGS, err = b.getPkgConfigFlags(a.Package); err != nil {
@@ -950,8 +953,9 @@ func (b *Builder) loadCachedVet(a *Action) error {
 	if err != nil {
 		return fmt.Errorf("reading srcfiles list: %w", err)
 	}
-	var srcfiles []string
-	for _, name := range strings.Split(string(list), "\n") {
+	listSplits := strings.Split(string(list), "\n")
+	srcfiles := make([]string, 0, len(listSplits))
+	for _, name := range listSplits {
 		if name == "" { // end of list
 			continue
 		}
@@ -974,8 +978,9 @@ func (b *Builder) loadCachedSrcFiles(a *Action) error {
 	if err != nil {
 		return fmt.Errorf("reading srcfiles list: %w", err)
 	}
-	var files []string
-	for _, name := range strings.Split(string(list), "\n") {
+	listSplits := strings.Split(string(list), "\n")
+	files := make([]string, 0, len(listSplits))
+	for _, name := range listSplits {
 		if name == "" { // end of list
 			continue
 		}

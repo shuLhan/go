@@ -1996,7 +1996,7 @@ func FuncOf(in, out []Type, variadic bool) Type {
 	n := len(in) + len(out)
 
 	var ft *funcType
-	var args []*rtype
+	args := make([]*rtype, 0, 4)
 	switch {
 	case n <= 4:
 		fixed := new(funcTypeFixed4)

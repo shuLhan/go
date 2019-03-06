@@ -48,7 +48,7 @@ type Example struct {
 //     top-level function, type, variable, or constant declaration other
 //     than the example function.
 func Examples(testFiles ...*ast.File) []*Example {
-	var list []*Example
+	var list []*Example = make([]*Example, 0, len(testFiles))
 	for _, file := range testFiles {
 		hasTests := false // file contains tests or benchmarks
 		numDecl := 0      // number of non-import declarations in the file
@@ -392,7 +392,7 @@ func playExampleFile(file *ast.File) *ast.File {
 	}
 
 	// Copy declaration slice, rewriting the ExampleX function to main.
-	var decls []ast.Decl
+	decls := make([]ast.Decl, 0, len(file.Decls))
 	for _, d := range file.Decls {
 		if f, ok := d.(*ast.FuncDecl); ok && isTest(f.Name.Name, "Example") {
 			// Copy the FuncDecl, as it may be used elsewhere.

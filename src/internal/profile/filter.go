@@ -74,7 +74,7 @@ func (loc *Location) matchesName(re *regexp.Regexp) bool {
 // unmatchedLines returns the lines in the location that do not match
 // the regular expression.
 func (loc *Location) unmatchedLines(re *regexp.Regexp) []Line {
-	var lines []Line
+	lines := make([]Line, 0, len(loc.Line))
 	for _, ln := range loc.Line {
 		if fn := ln.Function; fn != nil {
 			if re.MatchString(fn.Name) {

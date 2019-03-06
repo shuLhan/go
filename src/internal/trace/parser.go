@@ -876,7 +876,7 @@ func symbolize(events []*Event, bin string) error {
 
 	// Write all pcs to addr2line.
 	// Need to copy pcs to an array, because map iteration order is non-deterministic.
-	var pcArray []uint64
+	pcArray := make([]uint64, 0, len(pcs))
 	for pc := range pcs {
 		pcArray = append(pcArray, pc)
 		_, err := fmt.Fprintf(in, "0x%x\n", pc-1)

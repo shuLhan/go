@@ -27,7 +27,7 @@ func openXcoff(r io.ReaderAt) (rawFile, error) {
 }
 
 func (f *xcoffFile) symbols() ([]Sym, error) {
-	var syms []Sym
+	syms := make([]Sym, 0, len(f.xcoff.Symbols))
 	for _, s := range f.xcoff.Symbols {
 		const (
 			N_UNDEF = 0  // An undefined (extern) symbol

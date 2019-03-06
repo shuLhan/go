@@ -784,7 +784,7 @@ func dumpSourcesColumn(writer *ssa.HTMLWriter, fn *ir.Func) {
 	}
 
 	// Read sources of inlined functions.
-	var inlFns []*ssa.FuncLines
+	inlFns := make([]*ssa.FuncLines, 0, len(ssaDumpInlined))
 	for _, fi := range ssaDumpInlined {
 		elno := fi.Endlineno
 		fname := base.Ctxt.PosTable.Pos(fi.Pos()).Filename()
@@ -3739,7 +3739,7 @@ type intrinsicKey struct {
 func InitTables() {
 	intrinsics = map[intrinsicKey]intrinsicBuilder{}
 
-	var all []*sys.Arch
+	all := make([]*sys.Arch, 0, len(sys.Archs))
 	var p4 []*sys.Arch
 	var p8 []*sys.Arch
 	var lwatomics []*sys.Arch

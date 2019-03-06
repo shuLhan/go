@@ -1361,10 +1361,10 @@ func Loaderblk(ctxt *Link, off uint64) {
 }
 
 func (f *xcoffFile) writeLdrScn(ctxt *Link, globalOff uint64) {
-	var symtab []*XcoffLdSym64
-	var strtab []*XcoffLdStr64
-	var importtab []*XcoffLdImportFile64
-	var reloctab []*XcoffLdRel64
+	symtab := make([]*XcoffLdSym64, 0, len(f.loaderSymbols))
+	strtab := make([]*XcoffLdStr64, 0, len(f.loaderSymbols))
+	importtab := make([]*XcoffLdImportFile64, 0, len(f.dynLibraries))
+	reloctab := make([]*XcoffLdRel64, 0, len(f.loaderReloc))
 	var dynimpreloc []*XcoffLdRel64
 
 	// As the string table is updated in any loader subsection,

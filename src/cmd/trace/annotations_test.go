@@ -149,7 +149,7 @@ func TestAnalyzeAnnotations(t *testing.T) {
 		"task0.region1",
 		"task0.region2",
 	}
-	var gotRegions []string
+	gotRegions := make([]string, 0, len(res.regions))
 	for regionID := range res.regions {
 		gotRegions = append(gotRegions, regionID.Type)
 	}

@@ -260,9 +260,11 @@ func (p *Package) loadDefines(f *File) {
 func (p *Package) guessKinds(f *File) []*Name {
 	// Determine kinds for names we already know about,
 	// like #defines or 'struct foo', before bothering with gcc.
-	var names, needType []*Name
+	keys := nameKeys(f.Name)
+	names := make([]*Name, 0, len(keys))
+	needType := make([]*Name, 0, len(keys))
 	optional := map[*Name]bool{}
-	for _, key := range nameKeys(f.Name) {
+	for _, key := range keys {
 		n := f.Name[key]
 		// If we've already found this name as a #define
 		// and we can translate it as a constant value, do so.

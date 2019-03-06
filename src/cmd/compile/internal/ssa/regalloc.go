@@ -841,10 +841,10 @@ func (s *regAllocState) isGReg(r register) bool {
 func (s *regAllocState) regalloc(f *Func) {
 	regValLiveSet := f.newSparseSet(f.NumValues()) // set of values that may be live in register
 	defer f.retSparseSet(regValLiveSet)
-	var oldSched []*Value
-	var phis []*Value
-	var phiRegs []register
-	var args []*Value
+	oldSched := make([]*Value, 0, len(s.visitOrder))
+	phis := make([]*Value, 0, len(s.visitOrder))
+	phiRegs := make([]register, 0, len(s.visitOrder))
+	args := make([]*Value, 0, len(s.visitOrder))
 
 	// Data structure used for computing desired registers.
 	var desired desiredState
@@ -1985,7 +1985,7 @@ func (s *regAllocState) placeSpills() {
 	}
 
 	// Insert spill instructions into the block schedules.
-	var oldSched []*Value
+	oldSched := make([]*Value, 0, len(s.visitOrder))
 	for _, b := range s.visitOrder {
 		nfirst := 0
 		for _, v := range b.Values {

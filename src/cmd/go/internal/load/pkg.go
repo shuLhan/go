@@ -2663,7 +2663,7 @@ func GoFilesPackage(ctx context.Context, opts PackageOpts, gofiles []string) *Pa
 	// to make it look like this is a standard package or
 	// command directory. So that local imports resolve
 	// consistently, the files must all be in the same directory.
-	var dirent []fs.FileInfo
+	dirent := make([]os.FileInfo, 0, len(gofiles))
 	var dir string
 	for _, file := range gofiles {
 		fi, err := fsys.Stat(file)

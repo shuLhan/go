@@ -972,7 +972,7 @@ func oidInExtensions(oid asn1.ObjectIdentifier, extensions []pkix.Extension) boo
 // marshalSANs marshals a list of addresses into a the contents of an X.509
 // SubjectAlternativeName extension.
 func marshalSANs(dnsNames, emailAddresses []string, ipAddresses []net.IP, uris []*url.URL) (derBytes []byte, err error) {
-	var rawValues []asn1.RawValue
+	rawValues := make([]asn1.RawValue, 0, len(dnsNames))
 	for _, name := range dnsNames {
 		if err := isIA5String(name); err != nil {
 			return nil, err
@@ -1798,7 +1798,7 @@ func parseCSRExtensions(rawAttributes []asn1.RawValue) ([]pkix.Extension, error)
 		Values []asn1.RawValue `asn1:"set"`
 	}
 
-	var ret []pkix.Extension
+	ret := make([]pkix.Extension, 0, len(rawAttributes))
 	for _, rawAttr := range rawAttributes {
 		var attr pkcs10Attribute
 		if rest, err := asn1.Unmarshal(rawAttr.FullBytes, &attr); err != nil || len(rest) != 0 || len(attr.Values) == 0 {

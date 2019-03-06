@@ -1323,7 +1323,7 @@ func (f *File) removeDups() {
 	// Duplicate require and retract directives are not removed.
 
 	// Drop killed statements from the syntax tree.
-	var stmts []Expr
+	stmts := make([]Expr, 0, len(f.Syntax.Stmt))
 	for _, stmt := range f.Syntax.Stmt {
 		switch stmt := stmt.(type) {
 		case *Line:

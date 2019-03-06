@@ -29,7 +29,7 @@ func openPE(r io.ReaderAt) (rawFile, error) {
 func (f *peFile) symbols() ([]Sym, error) {
 	// Build sorted list of addresses of all symbols.
 	// We infer the size of a symbol by looking at where the next symbol begins.
-	var addrs []uint64
+	addrs := make([]uint64, 0, len(f.pe.Symbols))
 
 	var imageBase uint64
 	switch oh := f.pe.OptionalHeader.(type) {
@@ -39,7 +39,7 @@ func (f *peFile) symbols() ([]Sym, error) {
 		imageBase = oh.ImageBase
 	}
 
-	var syms []Sym
+	syms := make([]Sym, 0, len(f.pe.Symbols))
 	for _, s := range f.pe.Symbols {
 		const (
 			N_UNDEF = 0  // An undefined (extern) symbol

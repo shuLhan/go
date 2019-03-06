@@ -470,7 +470,7 @@ func CleanPatterns(patterns []string) []string {
 	if len(patterns) == 0 {
 		return []string{"."}
 	}
-	var out []string
+	out := make([]string, 0, len(patterns))
 	for _, a := range patterns {
 		var p, v string
 		if build.IsLocalImport(a) || filepath.IsAbs(a) {

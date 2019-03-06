@@ -382,7 +382,7 @@ func (gcToolchain) asm(b *Builder, a *Action, sfiles []string) ([]string, error)
 	p := a.Package
 	args := asmArgs(a, p)
 
-	var ofiles []string
+	ofiles := make([]string, 0, len(sfiles))
 	for _, sfile := range sfiles {
 		overlayPath, _ := fsys.OverlayPath(mkAbs(p.Dir, sfile))
 		ofile := a.Objdir + sfile[:len(sfile)-len(".s")] + ".o"
@@ -456,7 +456,7 @@ func toolVerify(a *Action, b *Builder, p *load.Package, newTool string, ofile st
 }
 
 func (gcToolchain) pack(b *Builder, a *Action, afile string, ofiles []string) error {
-	var absOfiles []string
+	absOfiles := make([]string, 0, len(ofiles))
 	for _, f := range ofiles {
 		absOfiles = append(absOfiles, mkAbs(a.Objdir, f))
 	}

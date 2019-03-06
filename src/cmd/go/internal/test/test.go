@@ -704,8 +704,6 @@ func runTest(ctx context.Context, cmd *base.Command, args []string) {
 		b.Init()
 	}
 
-	var builds, runs, prints []*work.Action
-
 	if testCoverPaths != nil {
 		match := make([]func(*load.Package) bool, len(testCoverPaths))
 		matched := make([]bool, len(testCoverPaths))
@@ -774,6 +772,10 @@ func runTest(ctx context.Context, cmd *base.Command, args []string) {
 			}
 		}
 	}
+
+	builds := make([]*work.Action, 0, len(pkgs))
+	runs := make([]*work.Action, 0, len(pkgs))
+	prints := make([]*work.Action, 0, len(pkgs))
 
 	// Prepare build + run + print actions for all packages being tested.
 	for _, p := range pkgs {

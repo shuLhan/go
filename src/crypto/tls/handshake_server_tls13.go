@@ -720,7 +720,7 @@ func (hs *serverHandshakeStateTLS13) sendSessionTickets() error {
 
 	m := new(newSessionTicketMsgTLS13)
 
-	var certsFromClient [][]byte
+	certsFromClient := make([][]byte, 0, len(c.peerCertificates))
 	for _, cert := range c.peerCertificates {
 		certsFromClient = append(certsFromClient, cert.Raw)
 	}

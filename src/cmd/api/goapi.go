@@ -209,8 +209,9 @@ func main() {
 		return
 	}
 
-	var required []string
-	for _, file := range strings.Split(*checkFile, ",") {
+	checkFiles := strings.Split(*checkFile, ",")
+	required := make([]string, 0, len(checkFiles))
+	for _, file := range checkFiles {
 		required = append(required, fileFeatures(file)...)
 	}
 	optional := fileFeatures(*nextFile)
@@ -313,7 +314,7 @@ func compareAPI(w io.Writer, features, required, optional, exception []string, a
 	}
 
 	// In next file, but not in API.
-	var missing []string
+	missing := make([]string, 0, len(optionalSet))
 	for feature := range optionalSet {
 		missing = append(missing, feature)
 	}
@@ -643,7 +644,7 @@ func (w *Walker) ImportFrom(fromPath, fromDir string, mode types.ImportMode) (*t
 	filenames := append(append([]string{}, info.GoFiles...), info.CgoFiles...)
 
 	// Parse package files.
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(filenames))
 	for _, file := range filenames {
 		f, err := w.parseFile(dir, file)
 		if err != nil {

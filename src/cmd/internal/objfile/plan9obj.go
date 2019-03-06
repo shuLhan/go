@@ -44,7 +44,7 @@ func (f *plan9File) symbols() ([]Sym, error) {
 
 	// Build sorted list of addresses of all symbols.
 	// We infer the size of a symbol by looking at where the next symbol begins.
-	var addrs []uint64
+	addrs := make([]uint64, 0, len(plan9Syms))
 	for _, s := range plan9Syms {
 		if !validSymType[s.Type] {
 			continue
@@ -53,7 +53,7 @@ func (f *plan9File) symbols() ([]Sym, error) {
 	}
 	sort.Sort(uint64s(addrs))
 
-	var syms []Sym
+	syms := make([]Sym, 0, len(plan9Syms))
 
 	for _, s := range plan9Syms {
 		if !validSymType[s.Type] {

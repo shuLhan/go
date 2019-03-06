@@ -95,7 +95,7 @@ var ppfTests = []ppfTest{
 }
 
 func ppfDirTest(pattern string, nmatch int, dirs ...string) ppfTest {
-	var pkgs []ppfTestPackage
+	pkgs := make([]ppfTestPackage, 0, len(dirs))
 	for i, d := range dirs {
 		flags := []string{}
 		if i < nmatch {

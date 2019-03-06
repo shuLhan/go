@@ -194,7 +194,7 @@ func httpUserTask(w http.ResponseWriter, r *http.Request) {
 
 	base := time.Duration(firstTimestamp()) * time.Nanosecond // trace start
 
-	var data []entry
+	data := make([]entry, 0, len(tasks))
 
 	for _, task := range tasks {
 		if !filter.match(task) {

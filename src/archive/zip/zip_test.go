@@ -247,8 +247,8 @@ func (r *rleBuffer) ReadAt(p []byte, off int64) (n int, err error) {
 // Just testing the rleBuffer used in the Zip64 test above. Not used by the zip code.
 func TestRLEBuffer(t *testing.T) {
 	b := new(rleBuffer)
-	var all []byte
 	writes := []string{"abcdeee", "eeeeeee", "eeeefghaaiii"}
+	all := make([]byte, 0, len(writes)*len(writes[0]))
 	for _, w := range writes {
 		b.Write([]byte(w))
 		all = append(all, w...)

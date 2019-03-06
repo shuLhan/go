@@ -40,7 +40,7 @@ func testCallers(t *testing.T, pcs []uintptr, pan bool) {
 		}
 	}
 
-	var seen []string
+	seen := make([]string, 0, len(m))
 	for k := range m {
 		seen = append(seen, k)
 	}

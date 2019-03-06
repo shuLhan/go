@@ -665,7 +665,7 @@ func runInstall(pkg string, ch chan struct{}) {
 	// Start final link command line.
 	// Note: code below knows that link.p[targ] is the target.
 	var (
-		link      []string
+		link      = make([]string, 0, 1)
 		targ      int
 		ispackcmd bool
 	)
@@ -1735,7 +1735,7 @@ func cmdlist() {
 	jsonFlag := flag.Bool("json", false, "produce JSON output")
 	xflagparse(0)
 
-	var plats []string
+	plats := make([]string, 0, len(cgoEnabled))
 	for p := range cgoEnabled {
 		if incomplete[p] {
 			continue
@@ -1757,7 +1757,7 @@ func cmdlist() {
 		CgoSupported bool
 		FirstClass   bool
 	}
-	var results []jsonResult
+	results := make([]jsonResult, 0, len(plats))
 	for _, p := range plats {
 		fields := strings.Split(p, "/")
 		results = append(results, jsonResult{

@@ -119,7 +119,7 @@ func TestResolveIdents(t *testing.T) {
 
 	// parse package files
 	fset := token.NewFileSet()
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(sources))
 	for i, src := range sources {
 		f, err := parser.ParseFile(fset, fmt.Sprintf("sources[%d]", i), src, parser.DeclarationErrors)
 		if err != nil {

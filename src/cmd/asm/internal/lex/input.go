@@ -325,7 +325,7 @@ func (in *Input) invokeMacro(macro *Macro) {
 		return
 	}
 	actuals := in.argsFor(macro)
-	var tokens []Token
+	tokens := make([]Token, 0, len(macro.tokens))
 	for _, tok := range macro.tokens {
 		if tok.ScanToken != scanner.Ident {
 			tokens = append(tokens, tok)

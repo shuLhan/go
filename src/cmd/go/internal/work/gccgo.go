@@ -199,7 +199,7 @@ func buildImportcfgSymlinks(b *Builder, root string, importcfg []byte) error {
 
 func (tools gccgoToolchain) asm(b *Builder, a *Action, sfiles []string) ([]string, error) {
 	p := a.Package
-	var ofiles []string
+	ofiles := make([]string, 0, len(sfiles))
 	for _, sfile := range sfiles {
 		base := filepath.Base(sfile)
 		ofile := a.Objdir + base[:len(base)-len(".s")] + ".o"
@@ -233,7 +233,7 @@ func gccgoArchive(basedir, imp string) string {
 func (tools gccgoToolchain) pack(b *Builder, a *Action, afile string, ofiles []string) error {
 	p := a.Package
 	objdir := a.Objdir
-	var absOfiles []string
+	absOfiles := make([]string, 0, len(ofiles))
 	for _, f := range ofiles {
 		absOfiles = append(absOfiles, mkAbs(objdir, f))
 	}

@@ -104,7 +104,7 @@ func TestPackagesAndErrors(ctx context.Context, opts PackageOpts, p *Package, co
 	pre.preloadImports(ctx, opts, allImports, p.Internal.Build)
 
 	var ptestErr, pxtestErr *PackageError
-	var imports, ximports []*Package
+	imports := make([]*Package, 0, len(p.TestImports))
 	var stk ImportStack
 	var testEmbed, xtestEmbed map[string][]string
 	stk.Push(p.ImportPath + " (test)")
@@ -139,6 +139,7 @@ func TestPackagesAndErrors(ctx context.Context, opts PackageOpts, p *Package, co
 	stk.Push(p.ImportPath + "_test")
 	pxtestNeedsPtest := false
 	rawXTestImports := str.StringList(p.XTestImports)
+	ximports := make([]*Package, 0, len(p.XTestImports))
 	for i, path := range p.XTestImports {
 		p1 := loadImport(ctx, opts, pre, path, p.Dir, p, &stk, p.Internal.Build.XTestImportPos[path], ResolveImport)
 		if p1.ImportPath == p.ImportPath {

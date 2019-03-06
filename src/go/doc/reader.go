@@ -853,7 +853,7 @@ func sortedFuncs(m methodSet, allMethods bool) []*Func {
 // This is only used to populate the deprecated Package.Bugs field.
 //
 func noteBodies(notes []*Note) []string {
-	var list []string
+	list := make([]string, 0, len(notes))
 	for _, n := range notes {
 		list = append(list, n.Body)
 	}

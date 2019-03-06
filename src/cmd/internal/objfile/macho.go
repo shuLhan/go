@@ -44,7 +44,7 @@ func (f *machoFile) symbols() ([]Sym, error) {
 	}
 	sort.Sort(uint64s(addrs))
 
-	var syms []Sym
+	syms := make([]Sym, 0, len(f.macho.Symtab.Syms))
 	for _, s := range f.macho.Symtab.Syms {
 		if s.Type&stabTypeMask != 0 {
 			// Skip stab debug info.

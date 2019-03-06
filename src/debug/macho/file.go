@@ -672,8 +672,9 @@ func (f *File) ImportedSymbols() ([]string, error) {
 
 	st := f.Symtab
 	dt := f.Dysymtab
-	var all []string
-	for _, s := range st.Syms[dt.Iundefsym : dt.Iundefsym+dt.Nundefsym] {
+	symbols := st.Syms[dt.Iundefsym : dt.Iundefsym+dt.Nundefsym]
+	all := make([]string, 0, len(symbols))
+	for _, s := range symbols {
 		all = append(all, s.Name)
 	}
 	return all, nil

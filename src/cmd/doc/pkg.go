@@ -423,7 +423,7 @@ func (pkg *Package) oneLineNodeDepth(node ast.Node, depth int) string {
 
 // oneLineField returns a one-line summary of the field.
 func (pkg *Package) oneLineField(field *ast.Field, depth int) string {
-	var names []string
+	names := make([]string, 0, len(field.Names))
 	for _, name := range field.Names {
 		names = append(names, name.Name)
 	}

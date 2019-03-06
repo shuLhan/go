@@ -419,7 +419,7 @@ func storeOrder(values []*Value, sset *sparseSet, storeNumber []int32) []*Value 
 		}
 		w = w.MemoryArg()
 	}
-	var stack []*Value
+	stack := make([]*Value, 0, len(values))
 	for _, v := range values {
 		if sset.contains(v.ID) {
 			// in sset means v is a store, or already pushed to stack, or already assigned a store number

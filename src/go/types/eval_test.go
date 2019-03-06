@@ -166,7 +166,7 @@ func TestEvalPos(t *testing.T) {
 	}
 
 	fset := token.NewFileSet()
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(sources))
 	for i, src := range sources {
 		file, err := parser.ParseFile(fset, "p", src, parser.ParseComments)
 		if err != nil {

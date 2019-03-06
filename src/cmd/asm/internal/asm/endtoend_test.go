@@ -353,7 +353,7 @@ func testErrors(t *testing.T, goarch, file string, flags ...string) {
 		}
 		delete(errors, fileline)
 	}
-	var extra []string
+	extra := make([]string, 0, len(errors))
 	for key := range errors {
 		extra = append(extra, key)
 	}

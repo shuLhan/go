@@ -115,7 +115,7 @@ func HashZip(zipfile string, hash Hash) (string, error) {
 		return "", err
 	}
 	defer z.Close()
-	var files []string
+	files := make([]string, 0, len(z.File))
 	zfiles := make(map[string]*zip.File)
 	for _, file := range z.File {
 		files = append(files, file.Name)

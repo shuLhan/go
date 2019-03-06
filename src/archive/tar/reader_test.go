@@ -765,7 +765,7 @@ func (rbs *readBadSeeker) Seek(int64, int) (int64, error) { return 0, fmt.Errorf
 // that truncated files are still detected even if the underlying io.Reader
 // satisfies io.Seeker.
 func TestReadTruncation(t *testing.T) {
-	var ss []string
+	ss := make([]string, 0, 4)
 	for _, p := range []string{
 		"testdata/gnu.tar",
 		"testdata/ustar-file-reg.tar",

@@ -544,7 +544,7 @@ func TestBigStackCallbackCgo(t *testing.T) {
 }
 
 func nextTrace(lines []string) ([]string, []string) {
-	var trace []string
+	trace := make([]string, 0, len(lines))
 	for n, line := range lines {
 		if strings.HasPrefix(line, "---") {
 			return trace, lines[n+1:]

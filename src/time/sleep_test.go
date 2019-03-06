@@ -327,8 +327,8 @@ func testAfterQueuing(delta Duration) error {
 	for _, slot := range slots {
 		go await(slot, result, After(Duration(slot)*delta))
 	}
-	var order []int
-	var times []Time
+	order := make([]int, 0, len(slots))
+	times := make([]Time, 0, len(slots))
 	for range slots {
 		r := <-result
 		order = append(order, r.slot)

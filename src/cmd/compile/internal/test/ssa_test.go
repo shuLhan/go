@@ -88,7 +88,6 @@ func TestCode(t *testing.T) {
 	defer os.RemoveAll(tmpdir)
 
 	// Find all the test functions (and the files containing them).
-	var srcs []string // files containing Test functions
 	type test struct {
 		name      string // TestFoo
 		usesFloat bool   // might use float operations
@@ -98,6 +97,7 @@ func TestCode(t *testing.T) {
 	if err != nil {
 		t.Fatalf("can't read testdata directory: %v", err)
 	}
+	srcs := make([]string, 0, len(files)) // files containing Test functions
 	for _, f := range files {
 		if !strings.HasSuffix(f.Name(), "_test.go") {
 			continue

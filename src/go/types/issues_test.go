@@ -179,7 +179,7 @@ L7 uses var z int`
 		t.Errorf("Check: unexpected error: %s", s)
 	}
 
-	var facts []string
+	facts := make([]string, 0, len(defs))
 	for id, obj := range defs {
 		if obj != nil {
 			fact := fmt.Sprintf("L%d defs %s", fset.Position(id.Pos()).Line, obj)

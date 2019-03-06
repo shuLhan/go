@@ -170,10 +170,11 @@ func printRunningGoroutines() {
 
 // runningGoroutines returns a list of remaining goroutines.
 func runningGoroutines() []string {
-	var gss []string
 	b := make([]byte, 2<<20)
 	b = b[:runtime.Stack(b, true)]
-	for _, s := range strings.Split(string(b), "\n\n") {
+	splits := strings.Split(string(b), "\n\n")
+	gss := make([]string, 0, len(splits))
+	for _, s := range splits {
 		ss := strings.SplitN(s, "\n", 2)
 		if len(ss) != 2 {
 			continue

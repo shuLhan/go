@@ -552,7 +552,7 @@ type Demangler func(name []string) (map[string]string, error)
 // it will silently preserve the original names in case of any errors.
 func (p *Profile) Demangle(d Demangler) error {
 	// Collect names to demangle.
-	var names []string
+	names := make([]string, 0, len(p.Function))
 	for _, fn := range p.Function {
 		names = append(names, fn.SystemName)
 	}

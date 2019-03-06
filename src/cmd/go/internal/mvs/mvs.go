@@ -241,7 +241,7 @@ func Req(target module.Version, base []string, reqs Reqs) ([]module.Version, err
 		}
 	}
 	// First walk the base modules that must be listed.
-	var min []module.Version
+	min := make([]module.Version, 0, len(base))
 	haveBase := map[string]bool{}
 	for _, path := range base {
 		if haveBase[path] {

@@ -374,7 +374,7 @@ func httpMMUDetails(w http.ResponseWriter, r *http.Request) {
 	worst := mmuCurve.Examples(time.Duration(window), 10)
 
 	// Construct a link for each window.
-	var links []linkedUtilWindow
+	links := make([]linkedUtilWindow, 0, len(worst))
 	for _, ui := range worst {
 		links = append(links, newLinkedUtilWindow(ui, time.Duration(window)))
 	}

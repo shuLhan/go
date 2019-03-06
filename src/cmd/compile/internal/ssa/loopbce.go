@@ -82,7 +82,7 @@ func parseIndVar(ind *Value) (min, inc, nxt *Value) {
 //
 // TODO: handle 32 bit operations
 func findIndVar(f *Func) []indVar {
-	var iv []indVar
+	iv := make([]indVar, 0, len(f.Blocks))
 	sdom := f.Sdom()
 
 	for _, b := range f.Blocks {

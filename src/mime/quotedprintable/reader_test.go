@@ -194,7 +194,7 @@ func TestExhaustive(t *testing.T) {
 		}
 		res["OK"]++
 	})
-	var outcomes []string
+	outcomes := make([]string, 0, len(res))
 	for k, v := range res {
 		outcomes = append(outcomes, fmt.Sprintf("%v: %d", k, v))
 	}

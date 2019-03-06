@@ -334,7 +334,7 @@ func (w *exportWriter) writeIndex(index map[*types.Sym]uint64, mainIndex bool) {
 	}
 
 	// Sort packages by path.
-	var pkgs []*types.Pkg
+	pkgs := make([]*types.Pkg, 0, len(pkgSyms))
 	for pkg := range pkgSyms {
 		pkgs = append(pkgs, pkg)
 	}

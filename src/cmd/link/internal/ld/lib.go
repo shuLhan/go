@@ -2078,8 +2078,9 @@ func ldshlibsyms(ctxt *Link, shlib string) {
 		Errorf(nil, "cannot read dep list from shared library %s: %v", libpath, err)
 		return
 	}
-	var deps []string
-	for _, dep := range strings.Split(string(depsbytes), "\n") {
+	depsSplit := strings.Split(string(depsbytes), "\n")
+	deps := make([]string, 0, len(depsSplit))
+	for _, dep := range depsSplit {
 		if dep == "" {
 			continue
 		}

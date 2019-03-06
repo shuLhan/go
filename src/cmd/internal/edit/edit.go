@@ -71,7 +71,7 @@ func (b *Buffer) Bytes() []byte {
 	// to be applied before a replacement of the text at [x, y).
 	sort.Stable(b.q)
 
-	var new []byte
+	new := make([]byte, 0, len(b.q))
 	offset := 0
 	for i, e := range b.q {
 		if e.start < offset {

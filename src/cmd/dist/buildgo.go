@@ -76,7 +76,7 @@ func defaultCCFunc(name string, defaultcc map[string]string) string {
 // mkzcgo writes zosarch.go for cmd/go.
 func mkzosarch(dir, file string) {
 	// sort for deterministic zosarch.go file
-	var list []string
+	list := make([]string, 0, len(cgoEnabled))
 	for plat := range cgoEnabled {
 		list = append(list, plat)
 	}

@@ -95,7 +95,8 @@ func writebarrier(f *Func) {
 
 	var sb, sp, wbaddr, const0 *Value
 	var typedmemmove, typedmemclr, gcWriteBarrier *obj.LSym
-	var stores, after []*Value
+	stores := make([]*Value, 0, len(f.Blocks))
+	after := make([]*Value, 0, len(f.Blocks))
 	var sset *sparseSet
 	var storeNumber []int32
 

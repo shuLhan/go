@@ -286,7 +286,7 @@ func typecheck(cfg *TypeConfig, f *ast.File) (typeof map[interface{}]string, ass
 }
 
 func makeExprList(a []*ast.Ident) []ast.Expr {
-	var b []ast.Expr
+	b := make([]ast.Expr, 0, len(a))
 	for _, x := range a {
 		b = append(b, x)
 	}

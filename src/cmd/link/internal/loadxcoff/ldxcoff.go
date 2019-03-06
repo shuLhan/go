@@ -46,13 +46,13 @@ func Load(l *loader.Loader, arch *sys.Arch, localSymVersion int, input *bio.Read
 		return nil, fmt.Errorf("loadxcoff: %v: %v", pn, fmt.Sprintf(str, args...))
 	}
 
-	var ldSections []*ldSection
-
 	f, err := xcoff.NewFile((*xcoffBiobuf)(input))
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
+
+	ldSections := make([]*ldSection, 0, len(f.Sections))
 
 	for _, sect := range f.Sections {
 		//only text, data and bss section

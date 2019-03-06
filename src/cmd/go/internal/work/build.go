@@ -630,7 +630,7 @@ func runInstall(ctx context.Context, cmd *base.Command, args []string) {
 
 // omitTestOnly returns pkgs with test-only packages removed.
 func omitTestOnly(pkgs []*load.Package) []*load.Package {
-	var list []*load.Package
+	list := make([]*load.Package, 0, len(pkgs))
 	for _, p := range pkgs {
 		if len(p.GoFiles)+len(p.CgoFiles) == 0 && !p.Internal.CmdlinePkgLiteral {
 			// Package has no source files,

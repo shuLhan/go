@@ -32,7 +32,7 @@ func (f *elfFile) symbols() ([]Sym, error) {
 		return nil, err
 	}
 
-	var syms []Sym
+	syms := make([]Sym, 0, len(elfSyms))
 	for _, s := range elfSyms {
 		sym := Sym{Addr: s.Value, Name: s.Name, Size: int64(s.Size), Code: '?'}
 		switch s.Section {

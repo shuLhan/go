@@ -222,8 +222,9 @@ func (ctxt *Context) isFile(path string) bool {
 
 // gopath returns the list of Go path directories.
 func (ctxt *Context) gopath() []string {
-	var all []string
-	for _, p := range ctxt.splitPathList(ctxt.GOPATH) {
+	gopaths := ctxt.splitPathList(ctxt.GOPATH)
+	all := make([]string, 0, len(gopaths))
+	for _, p := range gopaths {
 		if p == "" || p == ctxt.GOROOT {
 			// Empty paths are uninteresting.
 			// If the path is the GOROOT, ignore it.

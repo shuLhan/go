@@ -69,7 +69,7 @@ func splitError(err error) (pos, msg string) {
 }
 
 func parseFiles(t *testing.T, filenames []string, srcs [][]byte, mode parser.Mode) ([]*ast.File, []error) {
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(filenames))
 	var errlist []error
 	for i, filename := range filenames {
 		file, err := parser.ParseFile(fset, filename, srcs[i], mode)

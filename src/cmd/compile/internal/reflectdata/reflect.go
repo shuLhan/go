@@ -330,8 +330,9 @@ func methods(t *types.Type) []*typeSig {
 
 	// make list of methods for t,
 	// generating code if necessary.
-	var ms []*typeSig
-	for _, f := range mt.AllMethods().Slice() {
+	allMethods := mt.AllMethods().Slice()
+	ms := make([]*typeSig, 0, len(allMethods))
+	for _, f := range allMethods {
 		if f.Sym == nil {
 			base.Fatalf("method with no sym on %v", mt)
 		}
@@ -368,8 +369,9 @@ func methods(t *types.Type) []*typeSig {
 
 // imethods returns the methods of the interface type t, sorted by name.
 func imethods(t *types.Type) []*typeSig {
-	var methods []*typeSig
-	for _, f := range t.AllMethods().Slice() {
+	allMethods := t.AllMethods().Slice()
+	methods := make([]*typeSig, 0, len(allMethods))
+	for _, f := range allMethods {
 		if f.Type.Kind() != types.TFUNC || f.Sym == nil {
 			continue
 		}

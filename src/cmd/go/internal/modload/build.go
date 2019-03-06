@@ -351,8 +351,8 @@ func PackageBuildInfo(path string, deps []string) string {
 			mdeps[mustFindModule(loaded, path, dep)] = true
 		}
 	}
-	var mods []module.Version
 	delete(mdeps, target)
+	mods := make([]module.Version, 0, len(mdeps))
 	for mod := range mdeps {
 		mods = append(mods, mod)
 	}

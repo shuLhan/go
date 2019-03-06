@@ -217,7 +217,7 @@ func typecheck(t *testing.T, path string, filenames []string) {
 	fset := token.NewFileSet()
 
 	// parse package files
-	var files []*ast.File
+	files := make([]*ast.File, 0, len(filenames))
 	for _, filename := range filenames {
 		file, err := parser.ParseFile(fset, filename, nil, parser.AllErrors)
 		if err != nil {
@@ -281,7 +281,7 @@ func pkgFilenames(dir string) ([]string, error) {
 	if excluded[pkg.ImportPath] {
 		return nil, nil
 	}
-	var filenames []string
+	filenames := make([]string, 0, len(pkg.GoFiles))
 	for _, name := range pkg.GoFiles {
 		filenames = append(filenames, filepath.Join(pkg.Dir, name))
 	}

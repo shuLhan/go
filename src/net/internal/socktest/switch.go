@@ -31,8 +31,8 @@ func (sw *Switch) init() {
 
 // Stats returns a list of per-cookie socket statistics.
 func (sw *Switch) Stats() []Stat {
-	var st []Stat
 	sw.smu.RLock()
+	st := make([]Stat, 0, len(sw.stats))
 	for _, s := range sw.stats {
 		ns := *s
 		st = append(st, ns)

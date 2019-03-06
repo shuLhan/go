@@ -36,7 +36,7 @@ import (
 func ExampleScope() {
 	// Parse the source files for a package.
 	fset := token.NewFileSet()
-	var files []*ast.File
+	files := make([]*ast.File, 0, 2)
 	for _, file := range []struct{ name, input string }{
 		{"main.go", `
 package main
@@ -218,7 +218,7 @@ func fib(x int) int {
 		lineCol := fmt.Sprintf("%d:%d", posn.Line, posn.Column)
 		usesByObj[obj] = append(usesByObj[obj], lineCol)
 	}
-	var items []string
+	items := make([]string, 0, len(usesByObj))
 	for obj, uses := range usesByObj {
 		sort.Strings(uses)
 		item := fmt.Sprintf("%s:\n  defined at %s\n  used at %s",
